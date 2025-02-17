@@ -1,0 +1,88 @@
+-- your code goes here
+--Display each table
+CREATE TABLE EMP(
+  	EMP_CODE  	char(5) PRIMARY KEY,
+   	EMP_NAME	char(20),
+	DEPT_CODE	char(5),
+	DESIG_CODE	char(5),
+	SEX 		char(1),
+    ADDRESS 	char (25),
+    CITY 		char (20),
+    STATE       char (20),
+    PIN    		char (6),
+    BASIC 		Number,
+    JN_DT		Date);	
+CREATE TABLE DESIGNATION(
+	DESIG_CODE 	char(5) PRIMARY KEY,
+	DESIG_DESC	char(20));
+	
+CREATE TABLE DEPARTMENT(
+	DEPT_CODE 	char(5) PRIMARY KEY,
+	DEPT_NAME	char(15));
+
+DESC EMP;
+DESC DEPARTMENT;
+DESC DESIGNATION;
+
+-- Insert values into DESIGNATION table
+INSERT INTO DESIGNATION (DESIG_CODE, DESIG_DESC) VALUES 
+('MGR', 'Manager'),
+('EXE', 'Executive'),
+('OFR', 'Officer'),
+('CLK', 'Clerk'),
+('HLP', 'Helper');
+
+-- Insert values into DEPARTMENT table
+INSERT INTO DEPARTMENT (DEPT_CODE, DEPT_NAME) VALUES 
+('PRL', 'Personnel'),
+('PRO', 'Production'),
+('PUR', 'Purchase'),
+('FIN', 'Finance'),
+('RES', 'Research');
+
+-- Insert values into EMP table
+INSERT INTO EMP (EMP_CODE, EMP_NAME, DEPT_CODE, DESIG_CODE, SEX, ADDRESS, CITY, STATE, PIN, BASIC, JN_DT) VALUES 
+('E001', 'John Doe', 'PRL', 'MGR', 'M', '123 Main St', 'New York', 'NY', '10001', 80000, TO_DATE('2022-05-10', 'YYYY-MM-DD')),
+('E002', 'Jane Smith', 'PRO', 'EXE', 'F', '456 Park Ave', 'Los Angeles', 'CA', '90001', 60000, TO_DATE('2021-07-15', 'YYYY-MM-DD')),
+('E003', 'Michael Brown', 'PUR', 'OFR', 'M', '789 Elm St', 'Chicago', 'IL', '60601', 50000, TO_DATE('2020-08-20', 'YYYY-MM-DD')),
+('E004', 'Emily Davis', 'FIN', 'CLK', 'F', '101 Pine St', 'Houston', 'TX', '77001', 0, TO_DATE('2019-09-25', 'YYYY-MM-DD')),
+('E005', 'Robert Wilson', 'RES', 'HLP', 'M', '202 Cedar Rd', 'San Francisco', 'CA', '94101', 30000, TO_DATE('2018-10-30', 'YYYY-MM-DD'));
+-- Insert values into EMP table without DEPT_CODE and BASIC,QUESTION 4
+INSERT INTO EMP (EMP_CODE, EMP_NAME, DESIG_CODE, SEX, ADDRESS, CITY, STATE, PIN, JN_DT) VALUES 
+('E006', 'Alice Johnson', 'EXE', 'F', '303 Maple St', 'Boston', 'MA', '02101', TO_DATE('2023-01-12', 'YYYY-MM-DD')),
+('E007', 'David Lee', 'CLK', 'M', '404 Oak St', 'Seattle', 'WA', '98101', TO_DATE('2022-06-15', 'YYYY-MM-DD')),
+('E008', 'Sophia Martinez', 'MGR', 'F', '505 Birch Rd', 'Denver', 'CO', '80201', TO_DATE('2021-11-20', 'YYYY-MM-DD'));
+--QUESTION 5
+SELECT * FROM EMP WHERE DEPT_CODE IS NULL;
+--QUESTION 6
+SELECT * FROM EMP WHERE BASIC=0;
+--QUESTION 7
+SELECT * FROM EMP WHERE BASIC IS NULL;
+--QUESTION 8
+SELECT AVG(BASIC) FROM EMP;
+--QUESTION 9
+UPDATE EMP SET BASIC=0 WHERE BASIC IS NULL;
+--QUESTION 10
+SELECT AVG(BASIC) FROM EMP; 
+--QUESTION 11
+DELETE FROM EMP WHERE DEPT_CODE IS NULL;
+--QUESTION 12   
+SELECT EMP_NAME, 1.9*BASIC NETPAY FROM EMP;
+--QUESTION 13 
+SELECT UPPER(EMP_NAME), BASIC FROM EMP ORDER BY DEPT_CODE;
+--QUESTION 14
+SELECT EMP_CODE,EMP_NAME FROM EMP WHERE JN_DT>TO_DATE('01-JAN-1990');
+--QUESTION 15  
+SELECT COUNT(*) FROM EMP WHERE EXTRACT(MONTH FROM JN_DT)=1;
+--QUESTION 16  
+SELECT MAX(BASIC),MIN(BASIC) FROM EMP;
+--QUESTION 17  
+SELECT * FROM EMP WHERE SEX='F';
+--QUESTION 18  
+UPDATE EMP SET CITY=UPPER(CITY);
+--QUESTION 19  
+SELECT COUNT(DISTINCT(CITY)) FROM EMP;
+--QUESTION 20 
+SELECT * FROM EMP ORDER BY DEPT_CODE,BASIC DESC ;
+-- Commit the changes (if required)
+COMMIT;
